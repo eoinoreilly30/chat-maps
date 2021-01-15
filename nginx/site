@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    return 301 https://chatmaps.art$request_uri;
+}
+
+server {
+    listen          443 ssl;
+    server_name     chatmaps.art;
+
+    ssl_certificate     /etc/letsencrypt/live/chatmaps.art/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/chatmaps.art/privkey.pem;
+
+    location / {
+        root /var/www/dist;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+}
